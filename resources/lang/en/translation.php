@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'jska' => 'sad',
+    'settings' => 'settings',
+    'title_ar' => 'title in Arabic ',
+    'title_en' => 'title in English',
+    'description_ar' => ' description in Arabic ',
+    'description_en' => 'description in English ',
+    'main_image' => 'Main Images',
+    'sub_images' => 'Sub Images ',
+    'title' => 'title',
+    'description' => 'description',
+    'image' => 'image',
+    'no' => ' no',
+    'option' => 'option',
+    'Setings' => 'Settings',
+    'Products' => 'Products',
+    'home' => 'home',
+    'all_products' => 'all products',
+    'add_new' => ' add new',
+    'edit_product' => ' edit product',
+    'product_show' => ' product show',
+    'prodcut_info' => ' prodcut info',
+    'product_attachments' => ' product attachments',
+];

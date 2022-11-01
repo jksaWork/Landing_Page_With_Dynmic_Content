@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'jska' => 'sad',
+    'settings' => 'الاعدادات',
+    'title_ar' => 'العنوان بالعربيه',
+    'title_en' => 'العنوان بالانجليزبه',
+    'description_ar' => 'الوصف بالانجليزبه',
+    'description_en' => 'الوصف بالانجليزبه',
+    'main_image' => 'الصوره الرئيسه',
+    'sub_images' => 'الصور الفرعيه ',
+    'title' => 'العنوان',
+    'description' => 'الوصف',
+    'image' => 'الصوره',
+    'no' => 'المعرف الرقمي',
+    'option' => 'الخيارات',
+    'Setings' => 'الاعدادات',
+    'Products' => 'المنتجات',
+    'home' => 'الرئيسيه',
+    'all_products' => 'كل المنتجات',
+    'add_new' => 'اضافه جديد',
+    'edit_product' => 'تعديل المنتجات',
+    'product_show' => 'عرض المنتجات',
+    'prodcut_info' => 'بيانات المنتج',
+    'product_attachments' => 'مرفقات المنتج',
+];
