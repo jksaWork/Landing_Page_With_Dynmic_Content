@@ -2,14 +2,14 @@
     <div class="dlabnav-scroll">
         <ul class="metismenu" id="menu">
             <li class="{{ request()->routeIs('admin.product.index') ? 'mm-active' : '' }} ">
-                <a class="ai-icon d-flex justify-content-between align-items-center"  href="{{ route('admin.product.index')}}" aria-expanded="false">
+                <a class="ai-icon d-flex justify-content-between align-items-center"  href="{{ route('admin.categories.index')}}" aria-expanded="false">
                     <span>
                     <span>
                         <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M13,3V9H21V3M13,21H21V11H13M3,21H11V15H3M3,13H11V3H3V13Z" />
                         </svg>
                     </span>
-                    <span class="nav-text mx-2">{{__('translation.Products')}} </span>
+                    <span class="nav-text mx-2">{{__('translation.categories')}} </span>
                     </span>
                 </a>
             </li>

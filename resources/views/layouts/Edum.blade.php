@@ -18,7 +18,7 @@
 	<link rel="shortcut icon" type="image/x-icon" href="{{asset('uploads/logos/ZmlnAW2N0To93TQU4CZNqdPYorkDaVLgCsebsjLj.png')}}" />
 
 	<!-- PAGE TITLE HERE -->
-	<title> Move App - @yield('title' , 'Dashboard')</title>
+	<title> Clint Task - @yield('title' , 'Dashboard')</title>
 	<!-- MOBILE SPECIFIC -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- STYLESHEETS -->

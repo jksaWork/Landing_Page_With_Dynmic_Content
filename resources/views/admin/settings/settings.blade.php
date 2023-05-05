@@ -5,8 +5,8 @@
     </div>
 
     <ul class="breadcrumb mt-2">
-        <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">@lang('site.home')</a></li>
-        <li class="breadcrumb-item">@lang('settings.general_settings')</li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">@lang('translation.home')</a></li>
+        <li class="breadcrumb-item">@lang('translation.general_settings')</li>
     </ul>
 <div class="card p-5">
     <div class="row">
@@ -17,40 +17,35 @@
                     @method('post')
                     {{--logo--}}
                     <div class="form-group">
-                        <label>@lang('settings.logo')</label>
-                        <input type="file" name="logo" class="form-control load-image">
-                        <img src="{{ Storage::url('uploads/' . setting('logo')) }}" class="loaded-image" alt="" style="display: {{ setting('logo') ? 'block' : 'none' }}; width: 100px; margin: 10px 0;">
+                        <label>@lang('translation.logo_ar')</label>
+                        <input type="file" name="logo_ar" class="form-control load-image">
+                        <img src="{{ Storage::url('uploads/' . setting('logo_ar')) }}" class="loaded-image" alt="" style="display: {{ setting('logo') ? 'block' : 'none' }}; width: 100px; margin: 10px 0;">
+                    </div>
+
+                    <div class="form-group">
+                        <label>@lang('translation.logo_en')</label>
+                        <input type="file" name="logo_en" class="form-control load-image">
+                        <img src="{{ Storage::url('uploads/' . setting('logo_en')) }}" class="loaded-image" alt="" style="display: {{ setting('logo') ? 'block' : 'none' }}; width: 100px; margin: 10px 0;">
                     </div>
                     {{--fav_icon--}}
                     <div class="form-group">
-                        <label>@lang('settings.fav_icon')</label>
+                        <label>@lang('translation.fav_icon')</label>
                         <input type="file" name="fav_icon" class="form-control load-image">
                         <img src="{{ Storage::url('uploads/' . setting('fav_icon')) }}" class="loaded-image" alt="" style="display: {{ setting('fav_icon') ? 'block' : 'none' }}; width: 50px; margin: 10px 0;">
                     </div>
                     {{--title--}}
                     <div class="form-group">
-                        <label>@lang('settings.title')</label>
+                        <label>@lang('translation.title')</label>
                         <input type="text" name="title" class="form-control" value="{{ setting('title') }}">
                     </div>
                     {{--description--}}
                     <div class="form-group">
-                        <label>@lang('settings.description')</label>
+                        <label>@lang('translation.description')</label>
                         <textarea name="description" class="form-control">{{ setting('description') }}</textarea>
-                    </div>
-                    {{--keywords--}}
-                    <div class="form-group">
-                        <label>@lang('settings.keywords')</label>
-                        <input type="text" name="keywords" class="form-control" value="{{ setting('keywords') }}">
-                    </div>
-
-                    {{--email--}}
-                    <div class="form-group">
-                        <label>@lang('users.email')</label>
-                        <input type="text" name="email" class="form-control" value="{{ setting('email') }}">
                     </div>
                     {{--submit--}}
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i> @lang('site.update')</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i> @lang('translation.update')</button>
                     </div>
                 </form><!-- end of form -->
             </div><!-- end of tile -->
