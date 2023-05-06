@@ -51,5 +51,6 @@ return [
     'opration_sucess' => 'تمت العمليه بنجاح',
     'Status Was Change Succesfuly' => 'تم تغير حاله العنصر بنجاح',
     'edit_categery' => 'تعديل بيانات الاقسام',
-
+    'subcategories' => 'الاقسام الفرعيه',
+    'main_category' => 'القسم الرئيسي',
 ];

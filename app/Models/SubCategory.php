@@ -10,5 +10,10 @@ use Spatie\Translatable\HasTranslations;
 class SubCategory extends Model
 {
     use HasFactory, HasTranslations, HasStatus;
-    public $translatable = ['title'];
+    public $translatable = ['name'];
+    public $fillable = ['name', 'status', 'category_id'];
+    public function Category()
+    {
+        return $this->belongsTo(Categories::class, 'category_id');
+    }
 }

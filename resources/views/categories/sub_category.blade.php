@@ -4,7 +4,7 @@
         <div class="row page-titles mx-0">
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
-                    <h4>{{ __('translation.categories') }}</h4>
+                    <h4>{{ __('translation.subcategories') }}</h4>
                 </div>
             </div>
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
@@ -12,7 +12,7 @@
                     <li class="breadcrumb-item"><a href="index.html">{{ __('translation.home') }}</a></li>
                     <li class="breadcrumb-item active"><a href="javascript:void(0);">{{ __('translation.categories') }}</a></li>
                     <li class="breadcrumb-item active"><a
-                            href="javascript:void(0);">{{ __('translation.all_categories') }}</a></li>
+                            href="javascript:void(0);">{{ __('translation.subcategories') }}</a></li>
                 </ol>
             </div>
         </div>
@@ -23,7 +23,7 @@
                     <div id="list-view" class="tab-pane fade active show col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">{{ __('translation.main_categories') }}</h4>
+                                <h4 class="card-title">{{ __('translation.subcategories') }}</h4>
                                 <a href="#"  data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">+
                                     {{ __('translation.add_new') }}</a>
                             </div>
@@ -47,12 +47,12 @@
                                                 <th>{{ __('translation.no') }}</th>
                                                 <th>{{ __('translation.name')}}</th>
                                                 <th>{{ __('translation.status') }}</th>
-                                                <th>{{ __('translation.sub_category_count') }}</th>
+                                                <th>{{ __('translation.main_category') }}</th>
                                                 <th>{{ __('translation.option') }}</th>
                                             </tr>
                                         </th>
                                         <tbody>
-                                            @forelse ($categories as $key =>  $categorie)
+                                            @forelse ($subcategories as $key =>  $categorie)
                                             {{-- @dd($categorie) --}}
                                                 <tr role="row" class="odd">
                                                     <td>{{ $key + 1 }}</td>
@@ -60,28 +60,25 @@
                                                     {{-- <td>{{ $categorie->name }}</td> --}}
                                                     <td>{{ $categorie->name }}</td>
                                                     <td>{!! $categorie->getStatusWithSpan() !!}</td>
-                                                    <td>{{$categorie->sub_category_count }}</td>
+                                                    <td>{{$categorie->Category->name }}</td>
                                                     <td>
-                                                        <a href="#"  data-toggle="modal"
-                                                        id='{{ 'modal_tirger' . $key }}'
-                                                        onclick='fillData({{ "modal_tirger" . $key }})'
-                                                                    data-name_ar='{{ $categorie->getTranslation('name', 'ar') }}'
-                                                                    data-name_en='{{ $categorie->getTranslation('name', 'en') }}'
-                                                                    data-category_id='{{ $categorie->id }}'
-                                                        data-target="#UpdateModal"  class="btn edit_button btn-sm btn-outline-primary"><i
-                                                                > {{ __('translation.edit') }}</a>
-                                                                <a href='{{ route('admin.categories.show' , ['status' => 1 ,'category' => $categorie->id]) }}'
+                                                                <a href='{{ route('admin.subcategories.show' , ['status' => 1 ,'subcategory' => $categorie->id]) }}'
                                                                     class='btn btn-sm btn-outline-info'
                                                                     >
 
                                                                     {{ __('translation.change_status') }}
                                                                 </a>
-                                                                @if( $categorie->sub_category_count > 0)
-                                                                <a href="{{ route('admin.subcategories.index' , ['category_id'=> $categorie->id])}}" class="btn btn-sm btn-outline-info"><i
+                                                                @if( $categorie->sub_category_count > 1)
+                                                                <a href="{{ route('admin.product.show' , $categorie->id)}}" class="btn btn-sm btn-outline-info"><i
                                                                     > {{ __('translation.show_sub_category') }}
                                                                 </a>
                                                                 @endif
-                                                                <form action="{{ route('admin.categories.destroy', $categorie->id) }}"
+                                                                @if( $categorie->sub_category_count > 1)
+                                                                <a href="{{ route('admin.product.show' , $categorie->id)}}" class="btn btn-sm btn-outline-info"><i
+                                                                    > {{ __('translation.show_sub_category') }}
+                                                                </a>
+                                                                @endif
+                                                                <form action="{{ route('admin.product.destroy', $categorie->id) }}"
                                                             method="post" style="display: inline-block">
                                                             @csrf
                                                             @method('DELETE')
@@ -96,7 +93,7 @@
                                             @endforelse
                                         </tbody>
                                     </table>
-                                    {!! $categories->links()!!}
+                                    {!! $subcategories->links()!!}
                                     <div class="dataTables_paginate paging_simple_numbers" id="example3_paginate"><a
                                             class="paginate_button previous disabled" aria-controls="example3"
                                             data-dt-idx="0" tabindex="0" id="example3_previous">Previous</a><span><a
@@ -127,9 +124,20 @@
           </button>
         </div>
         <div class="modal-body">
-         <form action='{{ route('admin.categories.store') }}' method='post'>
+         <form action='{{ route('admin.subcategories.store') }}' method='post'>
             @csrf
+
             <div class="form-group">
+
+                <label for="">{{ __('translation.main_category') }}</label>
+                  <select class="form-control" name="category_id" id="">
+                   @foreach($categories as $key => $cat)
+                   <option value='{{ $cat->id }}'>{{ $cat->name }}</option>
+                   @endforeach
+                  </select>
+            </div>
+            <div class="form-group">
+
                 <label for="">{{ __('translation.name_ar') }}</label>
                 <input type="text"
                   class="form-control" name="name_ar" id="" aria-describedby="helpId" placeholder="">
@@ -165,12 +173,8 @@
           </button>
         </div>
         <div class="modal-body">
-         <form action='{{ route('admin.categories.update', 1) }}' method='post'>
+         <form action='{{ route('admin.categories.store') }}' method='post'>
             @csrf
-            @method('put')
-            <input type="hidden"
-            class="form-control" name="category_id" id="category_id" aria-describedby="helpId" placeholder="">
-
             <div class="form-group">
                 <label for="">{{ __('translation.name_ar') }}</label>
                 <input type="text"
@@ -201,10 +205,8 @@
         // console.log(id);
        let name_ar =  id.dataset.name_ar;
        let name_en =  id.dataset.name_en;
-      let  category_id = id.dataset.category_id;
        document.getElementById('name_ar').value = name_ar;
        document.getElementById('name_en').value = name_en;
-       document.getElementById('category_id').value = category_id;
 
         // console.log(name_ar)
     }

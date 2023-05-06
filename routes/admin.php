@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SubCategoryController;
 use Illuminate\Contracts\Session\Session;
 use Laratrust\Http\Controllers\RolesController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -32,7 +33,7 @@ Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
 ], function () {
-    Route::get('/', fn () => 'jksa')->name('switchLan');
+    Route::get('/', fn () => view('login2'))->name('switchLan');
     Route::get('/pro', fn () => 'jksa')->name('profile');
     Route::middleware('auth')->group(function () {
 
@@ -59,6 +60,7 @@ Route::group([
 
             Route::resource('product', ProductController::class);
             Route::resource('categories', CategoriesController::class);
+            Route::resource('subcategories', SubCategoryController::class);;
         });
     });
     // Route::get('user/data' , [AdminUsersController::class , 'data'])->name('user.data');

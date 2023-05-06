@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categories;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Calculation\Category;
 
-class CategoriesController extends Controller
+class SubCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,16 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Categories::withCount('SubCategory')->paginate();
-        return view('categories.index', compact('categories'));
+        $categories = Categories::when(request()->category_id, function ($q) {
+            // dd('hello');
+
+            $q->where('id', request()->category_id);
+        })->get();
+
+        $subcategories = SubCategory::when(request()->category_id, function ($q) {
+            $q->where('category_id', request()->category_id);
+        })->paginate();
+        return view('categories.sub_category', compact('categories', 'subcategories'));
     }
 
     /**
@@ -40,17 +49,21 @@ class CategoriesController extends Controller
         $request->validate([
             'name_ar' => 'required',
             'name_en' => 'required',
+            'category_id' => 'required',
         ]);
+        // dd($request->category_id);
 
         $data = [
             'ar' => $request->name_ar,
             'en' => $request->name_en,
         ];
 
-        Categories::create([
+        SubCategory::create([
             'name' => $data,
-            'status' => 0,
+            'status' => 1,
+            'category_id' => $request->category_id
         ]);
+
         $request->session()->flash('scuuess', __('translation.categor_inserted'));
         return  redirect()->back();
     }
@@ -58,12 +71,12 @@ class CategoriesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Categories  $categories
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($cat_id)
+    public function show($id)
     {
-        $categories = Categories::find($cat_id);
+        $categories = SubCategory::find($id);
         if (request()->has('status')) {
             $categories->ChangeStatus();
             session()->flash('sccuess', __('translation.opration_sucess'));
@@ -74,10 +87,10 @@ class CategoriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Categories  $categories
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Categories $categories)
+    public function edit($id)
     {
         //
     }
@@ -86,39 +99,22 @@ class CategoriesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Categories  $categories
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Categories $categories)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'name_ar' => 'required',
-            'name_en' => 'required',
-        ]);
-
-        $data = [
-            'ar' => $request->name_ar,
-            'en' => $request->name_en,
-        ];
-        // return ($request);
-        Categories::find($request->category_id)->update([
-            'name' => $data,
-            'status' => 0,
-        ]);
-        $request->session()->flash('scuuess', __('translation.categor_inserted'));
-        return  redirect()->back();
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Categories  $categories
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($categories_id)
+    public function destroy($id)
     {
-        Categories::find($categories_id)->delete();
-        session()->flash('success', __('translation.opration_sucess'));
-        return  redirect()->back();
+        //
     }
 }
